@@ -24,6 +24,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -104,6 +105,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 24,
     fontWeight: '600',
+    fontFamily: 'Poppins-Bold',
   },
   sectionDescription: {
     marginTop: 8,
