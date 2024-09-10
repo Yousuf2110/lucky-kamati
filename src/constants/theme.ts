@@ -1,0 +1,12 @@
+export const THEME = {
+  PRIMARY: '#7144AC',
+  BLACK: '#000000',
+  BLUE: '#0000FF',
+  LIGHT_BLUE: '#ADD8E6',
+  WHITE: '#FFFFFF',
+  GRAY: '#808080',
+  BACKGROUND: '#1F1F2F',
+  GREEN: '#008000',
+  RED: '#FF0000',
+  YELLOW: '#FFFF00',
+};
