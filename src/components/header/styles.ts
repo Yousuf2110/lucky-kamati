@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
     height: hp(8),
     backgroundColor: THEME.PRIMARY,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-end',
   },
   title: {
     fontSize: RFPercentage(3),

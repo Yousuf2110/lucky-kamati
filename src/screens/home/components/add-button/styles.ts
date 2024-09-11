@@ -15,11 +15,4 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  footer: {
-    width: '100%',
-    alignItems: 'flex-end',
-    marginBottom: 0,
-    bottom: 10,
-    paddingHorizontal: wp(4),
-  },
 });

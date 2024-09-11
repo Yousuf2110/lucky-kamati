@@ -1,11 +1,14 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import {styles} from './styles';
+import Header from '../../components/header';
+import InputFiled from './components/inputFiled';
 
 const AddUser = () => {
   return (
     <View style={styles.container}>
-      <Text>AddUser</Text>
+      <Header title={'Add Member'} showLeftIcon={true} />
+      <InputFiled />
     </View>
   );
 };

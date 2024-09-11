@@ -1,15 +1,20 @@
-import React, {useState} from 'react';
-import {View, Text, TextInput} from 'react-native';
+import React from 'react';
+import {TouchableOpacity} from 'react-native';
 import {styles} from './styles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {THEME} from '../../../../constants/theme';
+import {useNavigation} from '@react-navigation/native';
+import {SCREEN} from '../../../../constants/screen';
 
 const AddButton = () => {
-  const [text, setText] = useState('');
+  const navigation: any = useNavigation();
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={() => navigation.navigate(SCREEN.ADD_USER)}
+      style={styles.container}>
       <AntDesign name={'plus'} size={25} color={THEME.WHITE} />
-    </View>
+    </TouchableOpacity>
   );
 };
 

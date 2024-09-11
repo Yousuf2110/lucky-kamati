@@ -29,5 +29,6 @@ export const styles = StyleSheet.create({
     marginBottom: 0,
     bottom: hp(1),
     paddingHorizontal: wp(4),
+    position: 'absolute',
   },
 });
