@@ -15,12 +15,21 @@ export const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     flexDirection: 'row',
+    marginBottom: 0,
+    bottom: 0,
   },
   textContainer: {
     width: '100%',
     justifyContent: 'center',
     paddingVertical: hp(2),
     paddingHorizontal: hp(2),
+  },
+  line: {
+    width: '95%',
+    borderWidth: 1,
+    borderColor: THEME.GRAY,
+    opacity: 0.4,
+    alignSelf: 'center',
   },
   text: {
     fontSize: RFPercentage(3.4),

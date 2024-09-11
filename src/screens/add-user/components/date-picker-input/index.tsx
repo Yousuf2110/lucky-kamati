@@ -1,15 +1,14 @@
 import React, {useState} from 'react';
-import {TouchableHighlight, TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import {Text} from 'react-native';
 import {styles} from './styles';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {THEME} from '../../../../constants/theme';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-const DatePickerInput = ({}: any) => {
+const DatePickerInput = ({selectedDate, setSelectedDate}: any) => {
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
-  const [selectedDate, setSelectedDate] = useState('');
 
   const onChange = (event: any, selectedDate: any) => {
     if (event.type === 'set') {

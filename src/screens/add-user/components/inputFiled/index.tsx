@@ -3,7 +3,13 @@ import {View, TextInput} from 'react-native';
 import {styles} from './styles';
 import {THEME} from '../../../../constants/theme';
 
-const InputFiled = ({placeholder, value, onChangeText, keyboardType}: any) => {
+const InputFiled = ({
+  placeholder,
+  value,
+  onChangeText,
+  keyboardType,
+  maxLength,
+}: any) => {
   return (
     <View style={styles.textInputView}>
       <TextInput
@@ -13,6 +19,7 @@ const InputFiled = ({placeholder, value, onChangeText, keyboardType}: any) => {
         placeholderTextColor={THEME.GRAY}
         style={styles.input}
         keyboardType={keyboardType}
+        maxLength={maxLength}
       />
     </View>
   );
