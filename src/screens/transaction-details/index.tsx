@@ -11,12 +11,24 @@ const TransactionDetails = () => {
   return (
     <View style={styles.container}>
       <Header title={'Transactions Details'} showLeftIcon={true} />
-      <Card />
-      <Button
-        onPress={console.log('object')}
-        disabled={console.log('object')}
-        loading={console.log('object')}
-      />
+
+      <View
+        style={{width: '100%', justifyContent: 'center', flexDirection: 'row'}}>
+        <View style={{width: '50%'}}>
+          <Button
+            onPress={console.log('object')}
+            disabled={console.log('object')}
+            loading={console.log('object')}
+          />
+        </View>
+        <View style={{width: '50%'}}>
+          <Button
+            onPress={console.log('object')}
+            disabled={console.log('object')}
+            loading={console.log('object')}
+          />
+        </View>
+      </View>
     </View>
   );
 };

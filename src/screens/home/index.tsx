@@ -26,30 +26,7 @@ const Home = () => {
       <Header title={'Members List'} />
       <SearchBar />
       <FlatList
-        data={[
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-        ]}
+        data={[{}]}
         renderItem={() => <Card />}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: hp(20)}}

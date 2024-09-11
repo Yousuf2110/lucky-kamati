@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {TouchableHighlight, View} from 'react-native';
+import {TouchableHighlight, TouchableOpacity, View} from 'react-native';
 import {Text} from 'react-native';
 import {styles} from './styles';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -32,7 +32,7 @@ const DatePickerInput = ({}: any) => {
 
   return (
     <View style={styles.textInputView}>
-      <TouchableHighlight
+      <TouchableOpacity
         onPress={() => setShow(!show)}
         style={styles.textInputView}>
         <Text
@@ -44,15 +44,12 @@ const DatePickerInput = ({}: any) => {
           ]}>
           {selectedDate ? selectedDate : 'Select Date'}
         </Text>
-        {/* <View>
-          <AntDesign
-            name={'calendar'}
-            size={20}
-            color={selectedDate ? THEME.BLACK : THEME.GRAY}
-          />
-        </View> */}
-      </TouchableHighlight>
-
+        <AntDesign
+          name={'calendar'}
+          size={20}
+          color={selectedDate ? THEME.BLACK : THEME.GRAY}
+        />
+      </TouchableOpacity>
       {show && (
         <DateTimePicker
           testID="dateTimePicker"
