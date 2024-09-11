@@ -11,8 +11,9 @@ import AddButton from './components/add-button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = () => {
-  const [members, setMembers] = useState([]);
   const navigation = useNavigation();
+  const [members, setMembers] = useState([]);
+  const [text, setText] = useState('');
 
   useEffect(() => {
     const fetchMembers = async () => {
@@ -64,13 +65,17 @@ const Home = () => {
     );
   };
 
+  const filteredMembers = members.filter((member: any) =>
+    member.name.toLowerCase().includes(text.toLowerCase()),
+  );
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={THEME.PRIMARY} />
       <Header title={'Members List'} />
-      <SearchBar />
+      <SearchBar text={text} setText={setText} />
       <FlatList
-        data={members}
+        data={filteredMembers}
         renderItem={({item}: any) => (
           <Card data={item} onDelete={() => handleDeleteMember(item.id)} />
         )}

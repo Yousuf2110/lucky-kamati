@@ -4,8 +4,7 @@ import {styles} from './styles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {THEME} from '../../../../constants/theme';
 
-const SearchBar = () => {
-  const [text, setText] = useState('');
+const SearchBar = ({text, setText}: any) => {
   return (
     <View style={styles.container}>
       <View style={styles.iconColumn}>
