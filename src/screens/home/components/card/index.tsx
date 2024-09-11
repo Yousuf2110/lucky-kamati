@@ -1,15 +1,14 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import {styles} from './styles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {THEME} from '../../../../constants/theme';
-import {TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {SCREEN} from '../../../../constants/screen';
 
-const Card = ({data}: any) => {
-  console.log('data', data);
+const Card = ({data, onDelete}: any) => {
   const navigation: any = useNavigation();
+
   return (
     <TouchableOpacity
       activeOpacity={1}
@@ -31,7 +30,10 @@ const Card = ({data}: any) => {
         </View>
       </View>
       <View style={styles.buttonSection}>
-        <TouchableOpacity activeOpacity={0.8} style={styles.button}>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          style={styles.button}
+          onPress={onDelete}>
           <AntDesign name={'delete'} size={15} color={THEME.RED} />
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={0.8} style={styles.button}>

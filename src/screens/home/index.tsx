@@ -14,8 +14,6 @@ const Home = () => {
   const [members, setMembers] = useState([]);
   const navigation = useNavigation();
 
-  console.log('members', members.length);
-
   useEffect(() => {
     const fetchMembers = async () => {
       try {
@@ -47,6 +45,18 @@ const Home = () => {
     };
   }, [navigation]);
 
+  const handleDeleteMember = async (id: number) => {
+    try {
+      const storedData = await AsyncStorage.getItem('members');
+      let members = storedData ? JSON.parse(storedData) : [];
+      members = members.filter((member: any) => member.id !== id);
+      await AsyncStorage.setItem('members', JSON.stringify(members));
+      setMembers(members);
+    } catch (error) {
+      console.log('Failed to delete member', error);
+    }
+  };
+
   const renderEmptyComponent = () => {
     return (
       <View style={styles.emptyContainer}>
@@ -62,8 +72,9 @@ const Home = () => {
       <SearchBar />
       <FlatList
         data={members}
-        renderItem={({item}) => <Card data={item} />}
-        keyExtractor={(item, index) => index.toString()}
+        renderItem={({item}: any) => (
+          <Card data={item} onDelete={() => handleDeleteMember(item.id)} />
+        )}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: hp(20)}}
         ListEmptyComponent={renderEmptyComponent}

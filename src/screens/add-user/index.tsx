@@ -32,6 +32,7 @@ const AddUser = () => {
     }
 
     const userData = {
+      id: new Date().getTime(), // Generate a unique ID based on the timestamp
       name,
       phone,
       payment,
