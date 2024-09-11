@@ -36,7 +36,14 @@ const Card = ({data, onDelete}: any) => {
           onPress={onDelete}>
           <AntDesign name={'delete'} size={15} color={THEME.RED} />
         </TouchableOpacity>
-        <TouchableOpacity activeOpacity={0.8} style={styles.button}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(SCREEN.ADD_USER, {
+              data,
+            })
+          }
+          activeOpacity={0.8}
+          style={styles.button}>
           <AntDesign name={'edit'} size={15} color={THEME.BLUE} />
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={0.8} style={styles.button}>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, ToastAndroid} from 'react-native';
 import {styles} from './styles';
 import Header from '../../components/header';
@@ -6,11 +6,21 @@ import InputFiled from './components/inputFiled';
 import Button from './components/button';
 import DatePickerInput from './components/date-picker-input';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {SCREEN} from '../../constants/screen';
 
 const AddUser = () => {
+  const route: any = useRoute();
   const navigation: any = useNavigation();
+
+  console.log('params', route?.params?.data);
+
+  useEffect(() => {
+    setName(route?.params?.data?.name);
+    setPhone(route?.params?.data?.phone);
+    setPayment(route?.params?.data?.payment);
+    setSelectedDate(route?.params?.data?.selectedDate);
+  }, [route?.params?.data]);
 
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -32,7 +42,7 @@ const AddUser = () => {
     }
 
     const userData = {
-      id: new Date().getTime(), // Generate a unique ID based on the timestamp
+      id: route?.params?.data?.id || new Date().getTime(), // Use existing ID or generate new one
       name,
       phone,
       payment,
@@ -42,7 +52,15 @@ const AddUser = () => {
     try {
       const storedData = await AsyncStorage.getItem('members');
       let members = storedData ? JSON.parse(storedData) : [];
-      members.push(userData);
+
+      if (route?.params?.data?.id) {
+        members = members.map((member: any) =>
+          member.id === userData.id ? userData : member,
+        );
+      } else {
+        members.push(userData);
+      }
+
       await AsyncStorage.setItem('members', JSON.stringify(members));
 
       ToastAndroid.show('User data saved successfully!', ToastAndroid.SHORT);
