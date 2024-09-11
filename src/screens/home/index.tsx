@@ -36,7 +36,6 @@ const Home = () => {
 
     fetchMembers();
 
-    // Add an event listener for when data is updated
     const onUpdate = () => fetchMembers();
     const unsubscribe = navigation.addListener('focus', onUpdate);
 

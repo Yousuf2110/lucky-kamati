@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Share} from 'react-native';
 import {styles} from './styles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {THEME} from '../../../../constants/theme';
@@ -8,6 +8,16 @@ import {SCREEN} from '../../../../constants/screen';
 
 const Card = ({data, onDelete}: any) => {
   const navigation: any = useNavigation();
+
+  const handleShare = async () => {
+    try {
+      const result = await Share.share({
+        message: `Name: ${data?.name}\nPhone #: ${data?.phone}\nPRs: ${data?.payment}`,
+      });
+    } catch (error) {
+      console.error('Error sharing:', error);
+    }
+  };
 
   return (
     <TouchableOpacity
@@ -46,7 +56,10 @@ const Card = ({data, onDelete}: any) => {
           style={styles.button}>
           <AntDesign name={'edit'} size={15} color={THEME.BLUE} />
         </TouchableOpacity>
-        <TouchableOpacity activeOpacity={0.8} style={styles.button}>
+        <TouchableOpacity
+          onPress={handleShare}
+          activeOpacity={0.8}
+          style={styles.button}>
           <AntDesign name={'sharealt'} size={15} color={THEME.GREEN} />
         </TouchableOpacity>
       </View>

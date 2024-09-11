@@ -13,8 +13,6 @@ const AddUser = () => {
   const route: any = useRoute();
   const navigation: any = useNavigation();
 
-  console.log('params', route?.params?.data);
-
   useEffect(() => {
     setName(route?.params?.data?.name);
     setPhone(route?.params?.data?.phone);
@@ -42,7 +40,7 @@ const AddUser = () => {
     }
 
     const userData = {
-      id: route?.params?.data?.id || new Date().getTime(), // Use existing ID or generate new one
+      id: route?.params?.data?.id || new Date().getTime(),
       name,
       phone,
       payment,
