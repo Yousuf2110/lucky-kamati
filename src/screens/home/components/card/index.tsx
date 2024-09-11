@@ -1,13 +1,19 @@
-import React, {useState} from 'react';
-import {View, Text, TextInput} from 'react-native';
+import React from 'react';
+import {View, Text} from 'react-native';
 import {styles} from './styles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {THEME} from '../../../../constants/theme';
+import {TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {SCREEN} from '../../../../constants/screen';
 
 const Card = () => {
-  const [text, setText] = useState('');
+  const navigation: any = useNavigation();
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={() => navigation.navigate(SCREEN.TRANSACTIONS_DETAILS)}
+      style={styles.container}>
       <View style={styles.box}>
         <View style={styles.textContainer}>
           <Text style={styles.title}>
@@ -34,7 +40,7 @@ const Card = () => {
           <AntDesign name={'sharealt'} size={15} color={THEME.GREEN} />
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

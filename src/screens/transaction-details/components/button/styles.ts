@@ -1,25 +1,22 @@
 import {StyleSheet} from 'react-native';
 import {RFPercentage} from 'react-native-responsive-fontsize';
+import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import {THEME} from '../../../../constants/theme';
-import {
-  heightPercentageToDP as hp,
-  widthPercentageToDP as wp,
-} from 'react-native-responsive-screen';
 
 export const styles = StyleSheet.create({
-  textInputView: {
+  button: {
     width: '90%',
-    backgroundColor: '#eee',
+    height: hp(6),
+    borderRadius: hp(0.8),
     alignSelf: 'center',
-    borderRadius: hp(1),
-    marginVertical: hp(2),
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: hp(5),
+    backgroundColor: THEME.PRIMARY,
   },
-  input: {
+  title: {
     fontSize: RFPercentage(2),
-    color: THEME.BLACK,
+    color: THEME.WHITE,
     fontFamily: 'Poppins-Regular',
-    top: hp(0.3),
-    width: '100%',
-    paddingHorizontal: wp(3),
   },
 });

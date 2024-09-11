@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from '../screens/home';
 import AddUser from '../screens/add-user';
 import {SCREEN} from '../constants/screen';
+import TransactionDetails from '../screens/transaction-details';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +17,10 @@ function RouteNavigator() {
         }}>
         <Stack.Screen name={SCREEN.HOME} component={Home} />
         <Stack.Screen name={SCREEN.ADD_USER} component={AddUser} />
+        <Stack.Screen
+          name={SCREEN.TRANSACTIONS_DETAILS}
+          component={TransactionDetails}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

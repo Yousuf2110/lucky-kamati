@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
   },
   input: {
     fontSize: RFPercentage(2),
-    color: THEME.BLACK,
+    color: THEME.WHITE,
     fontFamily: 'Poppins-Regular',
     top: hp(0.3),
     width: '100%',
