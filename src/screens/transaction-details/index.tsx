@@ -11,9 +11,19 @@ const TransactionDetails = () => {
   return (
     <View style={styles.container}>
       <Header title={'Transactions Details'} showLeftIcon={true} />
-
-      <View
-        style={{width: '100%', justifyContent: 'center', flexDirection: 'row'}}>
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>Qazi Muhaamad Yousuf</Text>
+        <Text style={styles.text}>0304-2483426</Text>
+        <Text style={styles.title}>
+          Total:
+          <Text style={styles.text}>
+            {' '}
+            2000
+            <Text style={styles.title}>rs</Text>
+          </Text>
+        </Text>
+      </View>
+      <View style={styles.row}>
         <View style={{width: '50%'}}>
           <Button
             onPress={console.log('object')}
