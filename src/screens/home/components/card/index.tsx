@@ -69,14 +69,16 @@ const Card = ({data, onDelete, onUpdatePayment}: any) => {
           onPress={() =>
             navigation.navigate(SCREEN.ADD_USER, {
               data,
+              type: false,
             })
           }
           activeOpacity={0.8}
           style={styles.button}>
-          <AntDesign name={'edit'} size={15} color={THEME.BLUE} />
+          <AntDesign name={'edit'} size={15} color={THEME.LIGHT_BLUE} />
         </TouchableOpacity>
       </View>
       <AddAmountModal
+        id={data?.id}
         visible={modalVisible}
         onRequestClose={onRequestClose}
         onSave={handleSavePayment}

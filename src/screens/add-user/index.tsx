@@ -91,12 +91,16 @@ const AddUser = () => {
         keyboardType={'decimal-pad'}
         maxLength={11}
       />
-      <InputFiled
-        placeholder={'Payment Paid'}
-        value={payment}
-        onChangeText={setPayment}
-        keyboardType={'decimal-pad'}
-      />
+
+      {route?.params?.type !== false && (
+        <InputFiled
+          placeholder={'Payment Paid'}
+          value={payment}
+          onChangeText={setPayment}
+          keyboardType={'decimal-pad'}
+        />
+      )}
+
       <DatePickerInput
         selectedDate={selectedDate}
         setSelectedDate={setSelectedDate}

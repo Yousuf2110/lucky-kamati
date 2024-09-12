@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react';
-import {View, Text, FlatList, ScrollView, Share} from 'react-native';
+import {View, Text, FlatList, ScrollView, Linking} from 'react-native';
 import {useRoute} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -11,6 +11,7 @@ const TransactionDetails = () => {
   const route: any = useRoute();
   const [transactions, setTransactions] = useState([]);
   const scrollViewRef: any = useRef();
+  const memberId = route?.params?.data?.id;
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -19,22 +20,23 @@ const TransactionDetails = () => {
         let parsedTransactions = savedTransactions
           ? JSON.parse(savedTransactions)
           : [];
+
+        parsedTransactions = parsedTransactions.filter(
+          (transaction: any) => transaction.memberId === memberId,
+        );
+
         parsedTransactions = parsedTransactions.map((transaction: any) => ({
           ...transaction,
           date: transaction.date || new Date().toLocaleDateString(),
         }));
         setTransactions(parsedTransactions);
-        await AsyncStorage.setItem(
-          'transactions',
-          JSON.stringify(parsedTransactions),
-        );
       } catch (error) {
         console.error('Failed to fetch transactions:', error);
       }
     };
 
     fetchTransactions();
-  }, []);
+  }, [memberId]);
 
   const renderTransaction = ({item}: any) => (
     <>
@@ -59,20 +61,25 @@ const TransactionDetails = () => {
     const payment = route?.params?.data?.payment || '';
 
     let transactionsText = transactions
-      .map(transaction => `${transaction.date}: ${transaction.amount} rs`)
+      .map(
+        (transaction: any) => `${transaction.date}: ${transaction.amount} rs`,
+      )
       .join('\n');
 
     return `Name: ${name}\nPhone: ${phone}\nTotal Payment: ${payment} rs\n\nTransactions:\n${transactionsText}`;
   };
 
-  const shareTextContent = async () => {
-    const contentToShare = getAllTextContent();
+  const sendMessageOnWhatsApp = async () => {
+    const phone = route?.params?.data?.phone;
+    const message = getAllTextContent();
+    const url = `whatsapp://send?phone=${phone}&text=${encodeURIComponent(
+      message,
+    )}`;
+
     try {
-      await Share.share({
-        message: contentToShare,
-      });
+      await Linking.openURL(url);
     } catch (error) {
-      console.error('Failed to share:', error);
+      console.error('Failed to open WhatsApp:', error);
     }
   };
 
@@ -102,22 +109,7 @@ const TransactionDetails = () => {
         />
       </ScrollView>
       <View style={styles.row}>
-        <View style={{width: '50%'}}>
-          <Button
-            title={'Save as Image'}
-            // onPress={captureScreenshot}
-            disabled={false}
-            loading={false}
-          />
-        </View>
-        <View style={{width: '50%'}}>
-          <Button
-            title={'Share as Text'}
-            onPress={shareTextContent}
-            disabled={false}
-            loading={false}
-          />
-        </View>
+        <Button title={'Share as Text'} onPress={sendMessageOnWhatsApp} />
       </View>
     </View>
   );

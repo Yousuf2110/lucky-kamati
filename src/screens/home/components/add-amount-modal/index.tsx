@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import InputFiled from '../../../add-user/components/inputFiled';
 import Button from '../../../../components/button';
 
-const AddAmountModal = ({visible, onRequestClose, onSave}: any) => {
+const AddAmountModal = ({visible, onRequestClose, onSave, id}: any) => {
   const [payment, setPayment] = useState('');
 
   const handleSave = async () => {
@@ -14,6 +14,7 @@ const AddAmountModal = ({visible, onRequestClose, onSave}: any) => {
         id: new Date().getTime().toString(),
         amount: parseFloat(payment),
         date: new Date().toLocaleDateString(),
+        memberId: id,
       };
 
       try {
