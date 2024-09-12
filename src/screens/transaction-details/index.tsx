@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, FlatList} from 'react-native';
+import React, {useEffect, useState, useRef} from 'react';
+import {View, Text, FlatList, ScrollView, Share} from 'react-native';
 import {useRoute} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -10,6 +10,7 @@ import Button from '../../components/button';
 const TransactionDetails = () => {
   const route: any = useRoute();
   const [transactions, setTransactions] = useState([]);
+  const scrollViewRef: any = useRef();
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -52,32 +53,59 @@ const TransactionDetails = () => {
     </>
   );
 
+  const getAllTextContent = () => {
+    const name = route?.params?.data?.name || '';
+    const phone = route?.params?.data?.phone || '';
+    const payment = route?.params?.data?.payment || '';
+
+    let transactionsText = transactions
+      .map(transaction => `${transaction.date}: ${transaction.amount} rs`)
+      .join('\n');
+
+    return `Name: ${name}\nPhone: ${phone}\nTotal Payment: ${payment} rs\n\nTransactions:\n${transactionsText}`;
+  };
+
+  const shareTextContent = async () => {
+    const contentToShare = getAllTextContent();
+    try {
+      await Share.share({
+        message: contentToShare,
+      });
+    } catch (error) {
+      console.error('Failed to share:', error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Header title={'Transactions Details'} showLeftIcon={true} />
-      <View style={styles.textContainer}>
-        <Text style={styles.text}>{route?.params?.data?.name}</Text>
-        <Text style={styles.text}>{route?.params?.data?.phone}</Text>
-        <Text style={styles.title}>
-          Total:
-          <Text style={styles.text}>
-            {' '}
-            {route?.params?.data?.payment}
-            <Text style={styles.title}>rs</Text>
+      <ScrollView
+        ref={scrollViewRef}
+        contentContainerStyle={{paddingBottom: 20}}>
+        <View style={styles.textContainer}>
+          <Text style={styles.text}>{route?.params?.data?.name}</Text>
+          <Text style={styles.text}>{route?.params?.data?.phone}</Text>
+          <Text style={styles.title}>
+            Total:
+            <Text style={styles.text}>
+              {' '}
+              {route?.params?.data?.payment}
+              <Text style={styles.title}>rs</Text>
+            </Text>
           </Text>
-        </Text>
-      </View>
-      <View style={styles.line} />
-      <FlatList
-        data={transactions}
-        renderItem={renderTransaction}
-        keyExtractor={(item, index) => index.toString()}
-      />
+        </View>
+        <View style={styles.line} />
+        <FlatList
+          data={transactions}
+          renderItem={renderTransaction}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      </ScrollView>
       <View style={styles.row}>
         <View style={{width: '50%'}}>
           <Button
-            title={'Share as Image'}
-            onPress={() => console.log('1')}
+            title={'Save as Image'}
+            // onPress={captureScreenshot}
             disabled={false}
             loading={false}
           />
@@ -85,7 +113,7 @@ const TransactionDetails = () => {
         <View style={{width: '50%'}}>
           <Button
             title={'Share as Text'}
-            onPress={() => console.log('4')}
+            onPress={shareTextContent}
             disabled={false}
             loading={false}
           />
