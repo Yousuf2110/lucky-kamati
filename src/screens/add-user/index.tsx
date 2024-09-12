@@ -3,7 +3,7 @@ import {View, ToastAndroid} from 'react-native';
 import {styles} from './styles';
 import Header from '../../components/header';
 import InputFiled from './components/inputFiled';
-import Button from './components/button';
+import Button from '../../components/button';
 import DatePickerInput from './components/date-picker-input';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation, useRoute} from '@react-navigation/native';

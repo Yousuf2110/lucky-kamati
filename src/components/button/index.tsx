@@ -1,9 +1,9 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, ActivityIndicator} from 'react-native';
-import {THEME} from '../../../../constants/theme';
+import {THEME} from '../../constants/theme';
 import {styles} from './styles';
 
-const Button = ({onPress, disabled, loading}: any) => {
+const Button = ({onPress, disabled, loading, title}: any) => {
   return (
     <TouchableOpacity
       activeOpacity={0.8}
@@ -16,7 +16,7 @@ const Button = ({onPress, disabled, loading}: any) => {
       {loading ? (
         <ActivityIndicator size="small" color={THEME.WHITE} />
       ) : (
-        <Text style={styles.title}>{'Submit'}</Text>
+        <Text style={styles.title}>{title}</Text>
       )}
     </TouchableOpacity>
   );

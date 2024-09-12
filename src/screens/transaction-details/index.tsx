@@ -3,10 +3,13 @@ import {View, Text, FlatList} from 'react-native';
 import {styles} from './styles';
 import Header from '../../components/header';
 import InputFiled from './components/inputFiled';
-import Button from './components/button';
 import Card from '../home/components/card';
+import {useRoute} from '@react-navigation/native';
+import Button from '../../components/button';
 
 const TransactionDetails = () => {
+  const route: any = useRoute();
+
   const [name, setName] = useState('');
 
   const transactions = [
@@ -45,13 +48,13 @@ const TransactionDetails = () => {
     <View style={styles.container}>
       <Header title={'Transactions Details'} showLeftIcon={true} />
       <View style={styles.textContainer}>
-        <Text style={styles.text}>Qazi Muhaamad Yousuf</Text>
-        <Text style={styles.text}>0304-2483426</Text>
+        <Text style={styles.text}>{route?.params?.data?.name}</Text>
+        <Text style={styles.text}>{route?.params?.data?.phone}</Text>
         <Text style={styles.title}>
           Total:
           <Text style={styles.text}>
             {' '}
-            2000
+            {route?.params?.data?.payment}
             <Text style={styles.title}>rs</Text>
           </Text>
         </Text>
@@ -68,6 +71,7 @@ const TransactionDetails = () => {
       <View style={styles.row}>
         <View style={{width: '50%'}}>
           <Button
+            title={'Share as Image'}
             onPress={console.log('object')}
             disabled={console.log('object')}
             loading={console.log('object')}
@@ -75,6 +79,7 @@ const TransactionDetails = () => {
         </View>
         <View style={{width: '50%'}}>
           <Button
+            title={'Share as Text'}
             onPress={console.log('object')}
             disabled={console.log('object')}
             loading={console.log('object')}
