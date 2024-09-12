@@ -18,7 +18,6 @@ export const styles = StyleSheet.create({
     backgroundColor: THEME.WHITE,
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
-    // paddingVertical: hp(2),
     height: hp(22),
     alignItems: 'center',
     shadowColor: THEME.BLACK,
@@ -35,5 +34,10 @@ export const styles = StyleSheet.create({
     color: THEME.BLACK,
     fontFamily: 'Poppins-SemiBold',
     textAlign: 'center',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    width: '95%',
+    justifyContent: 'space-between',
   },
 });

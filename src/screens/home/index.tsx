@@ -24,9 +24,7 @@ const Home = () => {
           const sortedData = parsedData.sort((a: any, b: any) => {
             const nameA = a.name.toUpperCase();
             const nameB = b.name.toUpperCase();
-            if (nameA < nameB) return -1;
-            if (nameA > nameB) return 1;
-            return 0;
+            return nameA.localeCompare(nameB);
           });
           setMembers(sortedData);
         }
@@ -57,12 +55,18 @@ const Home = () => {
     }
   };
 
-  const renderEmptyComponent = () => {
-    return (
-      <View style={styles.emptyContainer}>
-        <Text style={styles.title}>No members found</Text>
-      </View>
-    );
+  const handleUpdatePayment = async (id: number, updatedPayment: number) => {
+    try {
+      const updatedMembers: any = members.map((member: any) =>
+        member.id === id
+          ? {...member, payment: updatedPayment.toFixed(2)}
+          : member,
+      );
+      await AsyncStorage.setItem('members', JSON.stringify(updatedMembers));
+      setMembers(updatedMembers);
+    } catch (error) {
+      console.log('Failed to update payment', error);
+    }
   };
 
   const filteredMembers = members.filter((member: any) =>
@@ -72,16 +76,24 @@ const Home = () => {
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={THEME.PRIMARY} />
-      <Header title={'Members List'} />
+      <Header title="Members List" />
       <SearchBar text={text} setText={setText} />
       <FlatList
         data={filteredMembers}
         renderItem={({item}: any) => (
-          <Card data={item} onDelete={() => handleDeleteMember(item.id)} />
+          <Card
+            data={item}
+            onDelete={() => handleDeleteMember(item.id)}
+            onUpdatePayment={handleUpdatePayment}
+          />
         )}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: hp(20)}}
-        ListEmptyComponent={renderEmptyComponent}
+        ListEmptyComponent={() => (
+          <View style={styles.emptyContainer}>
+            <Text style={styles.title}>No members found</Text>
+          </View>
+        )}
       />
       <View style={styles.footer}>
         <AddButton />

@@ -1,16 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text, FlatList} from 'react-native';
-import {styles} from './styles';
 import Header from '../../components/header';
-import InputFiled from './components/inputFiled';
-import Card from '../home/components/card';
-import {useRoute} from '@react-navigation/native';
 import Button from '../../components/button';
+import {useRoute} from '@react-navigation/native';
+import {styles} from './styles';
 
 const TransactionDetails = () => {
   const route: any = useRoute();
-
-  const [name, setName] = useState('');
 
   const transactions = [
     {id: '1', amount: '1200', date: '12-12-2002'},

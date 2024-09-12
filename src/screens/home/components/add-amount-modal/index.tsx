@@ -3,14 +3,19 @@ import {Modal, Text, TouchableOpacity, View} from 'react-native';
 import {styles} from './styles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {THEME} from '../../../../constants/theme';
-import {useNavigation} from '@react-navigation/native';
-import {SCREEN} from '../../../../constants/screen';
-import Button from '../../../../components/button';
 import InputFiled from '../../../add-user/components/inputFiled';
+import Button from '../../../../components/button';
 
-const AddAmountModal = ({visible, onRequestClose}: any) => {
-  const navigation: any = useNavigation();
+const AddAmountModal = ({visible, onRequestClose, onSave}: any) => {
   const [payment, setPayment] = useState('');
+
+  const handleSave = () => {
+    if (payment) {
+      onSave(parseFloat(payment)); // Send payment to parent component as a number
+      setPayment(''); // Reset the input after saving
+      onRequestClose(); // Close the modal
+    }
+  };
 
   return (
     <Modal
@@ -29,14 +34,9 @@ const AddAmountModal = ({visible, onRequestClose}: any) => {
               keyboardType={'decimal-pad'}
             />
           </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              width: '95%',
-              justifyContent: 'space-between',
-            }}>
+          <View style={styles.buttonContainer}>
             <View style={{bottom: 30, width: '50%'}}>
-              <Button title="Save" onPress={'handleSaveUser'} />
+              <Button title="Save" onPress={handleSave} />
             </View>
             <View style={{bottom: 30, width: '50%'}}>
               <Button title="Cancel" onPress={onRequestClose} />

@@ -4,15 +4,20 @@ import {styles} from './styles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {THEME} from '../../../../constants/theme';
 import {useNavigation} from '@react-navigation/native';
-import {SCREEN} from '../../../../constants/screen';
 import AddAmountModal from '../add-amount-modal';
+import {SCREEN} from '../../../../constants/screen';
 
-const Card = ({data, onDelete}: any) => {
+const Card = ({data, onDelete, onUpdatePayment}: any) => {
   const navigation: any = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
 
   const onRequestClose = () => {
     setModalVisible(!modalVisible);
+  };
+
+  const handleSavePayment = (amount: number) => {
+    const updatedPayment = parseFloat(data.payment) + amount;
+    onUpdatePayment(data.id, updatedPayment);
   };
 
   return (
@@ -27,19 +32,16 @@ const Card = ({data, onDelete}: any) => {
       <View style={styles.box}>
         <View style={styles.textContainer}>
           <Text style={styles.title}>
-            Name:
-            <Text style={styles.text}> {data?.name}</Text>
+            Name: <Text style={styles.text}>{data?.name}</Text>
           </Text>
           <Text style={styles.title}>
-            Phone #<Text style={styles.text}> {data?.phone}</Text>
+            Phone #: <Text style={styles.text}>{data?.phone}</Text>
           </Text>
           <Text style={styles.title}>
-            PRs:
-            <Text style={styles.text}> {data?.payment}</Text>
+            PRs: <Text style={styles.text}>{data?.payment}</Text>
           </Text>
           <Text style={styles.title}>
-            Date:
-            <Text style={styles.text}> {data?.selectedDate}</Text>
+            Date: <Text style={styles.text}>{data?.selectedDate}</Text>
           </Text>
         </View>
       </View>
@@ -49,12 +51,7 @@ const Card = ({data, onDelete}: any) => {
           activeOpacity={0.8}
           style={[styles.button, {width: '65%'}]}>
           <Text style={styles.title}>Add Amount</Text>
-          <AntDesign
-            name={'pluscircle'}
-            size={15}
-            color={THEME.PRIMARY}
-            style={{bottom: 1, left: 10}}
-          />
+          <AntDesign name={'pluscircle'} size={15} color={THEME.PRIMARY} />
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.8}
@@ -64,7 +61,7 @@ const Card = ({data, onDelete}: any) => {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() =>
-            navigation.navigate(SCREEN.ADD_USER, {
+            navigation.navigate('ADD_USER', {
               data,
             })
           }
@@ -73,7 +70,11 @@ const Card = ({data, onDelete}: any) => {
           <AntDesign name={'edit'} size={15} color={THEME.BLUE} />
         </TouchableOpacity>
       </View>
-      <AddAmountModal visible={modalVisible} onRequestClose={onRequestClose} />
+      <AddAmountModal
+        visible={modalVisible}
+        onRequestClose={onRequestClose}
+        onSave={handleSavePayment}
+      />
     </TouchableOpacity>
   );
 };
