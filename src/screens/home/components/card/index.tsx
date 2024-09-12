@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
-import {styles} from './styles';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import {THEME} from '../../../../constants/theme';
 import {useNavigation} from '@react-navigation/native';
+import {View, Text, TouchableOpacity} from 'react-native';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+
+import {styles} from './styles';
 import AddAmountModal from '../add-amount-modal';
+import {THEME} from '../../../../constants/theme';
 import {SCREEN} from '../../../../constants/screen';
 
 const Card = ({data, onDelete, onUpdatePayment}: any) => {
@@ -51,7 +52,12 @@ const Card = ({data, onDelete, onUpdatePayment}: any) => {
           activeOpacity={0.8}
           style={[styles.button, {width: '65%'}]}>
           <Text style={styles.title}>Add Amount</Text>
-          <AntDesign name={'pluscircle'} size={15} color={THEME.PRIMARY} />
+          <AntDesign
+            name={'pluscircle'}
+            size={15}
+            color={THEME.PRIMARY}
+            style={{bottom: 1, left: 10}}
+          />
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.8}
@@ -61,7 +67,7 @@ const Card = ({data, onDelete, onUpdatePayment}: any) => {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() =>
-            navigation.navigate('ADD_USER', {
+            navigation.navigate(SCREEN.ADD_USER, {
               data,
             })
           }

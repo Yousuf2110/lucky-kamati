@@ -1,7 +1,8 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, ActivityIndicator} from 'react-native';
-import {THEME} from '../../constants/theme';
+import {Text, TouchableOpacity, ActivityIndicator} from 'react-native';
+
 import {styles} from './styles';
+import {THEME} from '../../constants/theme';
 
 const Button = ({onPress, disabled, loading, title}: any) => {
   return (

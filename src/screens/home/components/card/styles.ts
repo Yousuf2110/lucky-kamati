@@ -3,8 +3,9 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import {RFPercentage} from 'react-native-responsive-fontsize';
+
 import {THEME} from '../../../../constants/theme';
+import {RFPercentage} from 'react-native-responsive-fontsize';
 
 export const styles = StyleSheet.create({
   container: {

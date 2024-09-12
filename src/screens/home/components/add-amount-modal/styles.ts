@@ -1,10 +1,10 @@
 import {StyleSheet} from 'react-native';
-import {RFPercentage} from 'react-native-responsive-fontsize';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import {THEME} from '../../../../constants/theme';
+import {RFPercentage} from 'react-native-responsive-fontsize';
 
 export const styles = StyleSheet.create({
   centeredView: {

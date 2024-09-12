@@ -1,14 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, StatusBar, FlatList} from 'react-native';
-import {styles} from './styles';
 import {useNavigation} from '@react-navigation/native';
-import Header from '../../components/header';
-import {THEME} from '../../constants/theme';
-import SearchBar from './components/search-bar';
-import Card from './components/card';
-import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import AddButton from './components/add-button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
+import {styles} from './styles';
+import Card from './components/card';
+import {THEME} from '../../constants/theme';
+import Header from '../../components/header';
+import SearchBar from './components/search-bar';
+import AddButton from './components/add-button';
 
 const Home = () => {
   const navigation = useNavigation();

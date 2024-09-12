@@ -1,19 +1,39 @@
 import React, {useState} from 'react';
-import {Modal, Text, TouchableOpacity, View} from 'react-native';
+import {Modal, Text, TouchableOpacity, View, Alert} from 'react-native';
 import {styles} from './styles';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import {THEME} from '../../../../constants/theme';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import InputFiled from '../../../add-user/components/inputFiled';
 import Button from '../../../../components/button';
 
 const AddAmountModal = ({visible, onRequestClose, onSave}: any) => {
   const [payment, setPayment] = useState('');
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (payment) {
-      onSave(parseFloat(payment)); // Send payment to parent component as a number
-      setPayment(''); // Reset the input after saving
-      onRequestClose(); // Close the modal
+      const transaction = {
+        id: new Date().getTime().toString(),
+        amount: parseFloat(payment),
+        date: new Date().toLocaleDateString(),
+      };
+
+      try {
+        const existingTransactions = await AsyncStorage.getItem('transactions');
+        const transactions = existingTransactions
+          ? JSON.parse(existingTransactions)
+          : [];
+        transactions.push(transaction);
+
+        await AsyncStorage.setItem(
+          'transactions',
+          JSON.stringify(transactions),
+        );
+
+        onSave(parseFloat(payment));
+        setPayment('');
+        onRequestClose();
+      } catch (error) {
+        Alert.alert('Error', 'Failed to save the payment');
+      }
     }
   };
 
@@ -25,15 +45,13 @@ const AddAmountModal = ({visible, onRequestClose, onSave}: any) => {
       onRequestClose={onRequestClose}>
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <View style={{top: 10, width: '100%'}}>
-            <Text style={styles.title}>Add Amount</Text>
-            <InputFiled
-              placeholder={'Payment Paid'}
-              value={payment}
-              onChangeText={setPayment}
-              keyboardType={'decimal-pad'}
-            />
-          </View>
+          <Text style={styles.title}>Add Amount</Text>
+          <InputFiled
+            placeholder={'Payment Paid'}
+            value={payment}
+            onChangeText={setPayment}
+            keyboardType={'decimal-pad'}
+          />
           <View style={styles.buttonContainer}>
             <View style={{bottom: 30, width: '50%'}}>
               <Button title="Save" onPress={handleSave} />

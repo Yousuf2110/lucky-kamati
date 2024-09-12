@@ -1,8 +1,9 @@
 import React from 'react';
-import {View, Text, Button} from 'react-native';
-import {styles} from './styles';
+import {View, Text} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
+import {styles} from './styles';
 import {THEME} from '../../constants/theme';
 
 const Header = ({showLeftIcon, title}: any) => {

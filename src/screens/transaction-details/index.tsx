@@ -1,43 +1,55 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, FlatList} from 'react-native';
+import {useRoute} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import {styles} from './styles';
 import Header from '../../components/header';
 import Button from '../../components/button';
-import {useRoute} from '@react-navigation/native';
-import {styles} from './styles';
 
 const TransactionDetails = () => {
   const route: any = useRoute();
+  const [transactions, setTransactions] = useState([]);
 
-  const transactions = [
-    {id: '1', amount: '1200', date: '12-12-2002'},
-    {id: '2', amount: '500', date: '10-10-2020'},
-    {id: '3', amount: '800', date: '05-05-2021'},
-    {id: '1', amount: '1200', date: '12-12-2002'},
-    {id: '2', amount: '500', date: '10-10-2020'},
-    {id: '3', amount: '800', date: '05-05-2021'},
-    {id: '1', amount: '1200', date: '12-12-2002'},
-    {id: '2', amount: '500', date: '10-10-2020'},
-    {id: '3', amount: '800', date: '05-05-2021'},
-    {id: '1', amount: '1200', date: '12-12-2002'},
-    {id: '2', amount: '500', date: '10-10-2020'},
-    {id: '3', amount: '800', date: '05-05-2021'},
-    {id: '1', amount: '1200', date: '12-12-2002'},
-    {id: '2', amount: '500', date: '10-10-2020'},
-    {id: '3', amount: '800', date: '05-05-2021'},
-  ];
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      try {
+        const savedTransactions = await AsyncStorage.getItem('transactions');
+        let parsedTransactions = savedTransactions
+          ? JSON.parse(savedTransactions)
+          : [];
+        parsedTransactions = parsedTransactions.map((transaction: any) => ({
+          ...transaction,
+          date: transaction.date || new Date().toLocaleDateString(),
+        }));
+        setTransactions(parsedTransactions);
+        await AsyncStorage.setItem(
+          'transactions',
+          JSON.stringify(parsedTransactions),
+        );
+      } catch (error) {
+        console.error('Failed to fetch transactions:', error);
+      }
+    };
+
+    fetchTransactions();
+  }, []);
 
   const renderTransaction = ({item}: any) => (
-    <View
-      style={[
-        styles.textContainer,
-        {
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-        },
-      ]}>
-      <Text style={styles.text}>{item.amount}</Text>
-      <Text style={styles.text}>{item.date}</Text>
-    </View>
+    <>
+      <View
+        style={[
+          styles.textContainer,
+          {
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          },
+        ]}>
+        <Text style={styles.text}>{item.amount} rs</Text>
+        <Text style={styles.text}>{item.date}</Text>
+      </View>
+      <View style={styles.line} />
+    </>
   );
 
   return (
@@ -56,29 +68,26 @@ const TransactionDetails = () => {
         </Text>
       </View>
       <View style={styles.line} />
-
       <FlatList
         data={transactions}
         renderItem={renderTransaction}
-        keyExtractor={item => item.id}
-        ItemSeparatorComponent={() => <View style={styles.line} />}
+        keyExtractor={(item, index) => index.toString()}
       />
-
       <View style={styles.row}>
         <View style={{width: '50%'}}>
           <Button
             title={'Share as Image'}
-            onPress={console.log('object')}
-            disabled={console.log('object')}
-            loading={console.log('object')}
+            onPress={() => console.log('1')}
+            disabled={false}
+            loading={false}
           />
         </View>
         <View style={{width: '50%'}}>
           <Button
             title={'Share as Text'}
-            onPress={console.log('object')}
-            disabled={console.log('object')}
-            loading={console.log('object')}
+            onPress={() => console.log('4')}
+            disabled={false}
+            loading={false}
           />
         </View>
       </View>

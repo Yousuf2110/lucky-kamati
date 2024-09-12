@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import {TouchableOpacity, View} from 'react-native';
-import {Text} from 'react-native';
+import {TouchableOpacity, View, Text} from 'react-native';
+
 import {styles} from './styles';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import {THEME} from '../../../../constants/theme';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const DatePickerInput = ({selectedDate, setSelectedDate}: any) => {
   const [date, setDate] = useState(new Date());

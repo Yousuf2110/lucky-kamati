@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {View, ToastAndroid} from 'react-native';
+import DatePickerInput from './components/date-picker-input';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import {styles} from './styles';
 import Header from '../../components/header';
-import InputFiled from './components/inputFiled';
 import Button from '../../components/button';
-import DatePickerInput from './components/date-picker-input';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useNavigation, useRoute} from '@react-navigation/native';
 import {SCREEN} from '../../constants/screen';
+import InputFiled from './components/inputFiled';
 
 const AddUser = () => {
   const route: any = useRoute();
