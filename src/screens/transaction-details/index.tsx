@@ -109,7 +109,7 @@ const TransactionDetails = () => {
         />
       </ScrollView>
       <View style={styles.row}>
-        <Button title={'Share as Text'} onPress={sendMessageOnWhatsApp} />
+        <Button title={'Share Record'} onPress={sendMessageOnWhatsApp} />
       </View>
     </View>
   );
