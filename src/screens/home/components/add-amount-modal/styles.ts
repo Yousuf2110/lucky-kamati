@@ -34,6 +34,7 @@ export const styles = StyleSheet.create({
     color: THEME.BLACK,
     fontFamily: 'Poppins-SemiBold',
     textAlign: 'center',
+    top: hp(1),
   },
   buttonContainer: {
     flexDirection: 'row',
